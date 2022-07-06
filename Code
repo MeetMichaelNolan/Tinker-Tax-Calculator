@@ -1,0 +1,48 @@
+from tkinter import *
+from tkinter.ttk import *
+
+root = Tk()
+root.geometry('250x250')
+root.title("Tax Calculator")
+
+# Variables
+label_sales_tax = None
+sales_tax = 0.00
+label_amount_due = None
+amount_due = 0.00
+frame = Frame(root)
+frame.pack()
+
+# function to calculate tax
+def calc():
+    total = float(entry_total.get())
+    tax = float(entry_tax.get())
+    sales_tax = (total * tax)/100
+    amount_due = (total + sales_tax)
+    label_sales_tax.configure(text=f"Sales Tax: $   {(sales_tax):.2f}")
+    label_amount_due.configure(text=f"Amount Due: $   {(amount_due):.2f}")
+
+# Price Label
+label_price = Label(frame, text="Total Price:").pack()
+entry_total = Entry(frame)
+entry_total.pack( side= LEFT)
+# Tax Label
+label_tax = Label(root, text="Tax Rate:").pack()
+entry_tax = Entry(root)
+entry_tax.pack()
+
+# Sales Tax
+label_sales_tax = Label(root, text=f"Sales Tax: ${str(sales_tax)}")
+label_sales_tax.pack()
+# Amount Due
+label_amount_due = Label(root,text=f"Amount Due: ${str(amount_due)}")
+label_amount_due.pack()
+
+
+# Calculate Button
+calculate_btn = Button(root, text="Calculate", command=calc).pack()
+# Quit Button
+quit_btn = Button(root, text="Quit", command=root.destroy).pack()
+
+
+root.mainloop()
