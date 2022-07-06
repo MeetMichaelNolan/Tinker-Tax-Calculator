@@ -1,0 +1,70 @@
+import tkinter as tk
+
+class GUI:
+    def __init__(self):
+        self.root = tk.Tk()
+        self.root.title('Tax Calculator')
+        self.root.geometry('250x125')
+
+        # Frames
+        self.frame1 = tk.Frame(self.root)
+        self.frame2 = tk.Frame(self.root)
+        self.frame3 = tk.Frame(self.root)
+        self.frame4 = tk.Frame(self.root)
+        self.frame5 = tk.Frame(self.root)
+
+        # Label 1 & Entry 1
+        self.label1 = tk.Label(self.frame1, text='Total Purchase:')
+        self.label1.pack(side='left')
+
+        self.entry1 = tk.Entry(self.frame1, width=10)
+        self.entry1.pack(side='left')
+
+        # Label 2 & Entry 2
+        self.label2 = tk.Label(self.frame2, text='Tax Rate:')
+        self.label2.pack(side='left')
+
+        self.entry2 = tk.Entry(self.frame2, width=10)
+        self.entry2.pack(side='left')
+
+        # Label 3
+        self.sales_tax = tk.StringVar()
+        self.label3 = tk.Label(self.frame3, textvariable=self.sales_tax)
+        self.label3.pack(side='left')
+        self.sales_tax.set('Sales Tax: $  0.00')
+
+        # Label 4
+        self.amount_due = tk.StringVar()
+        self.label4 = tk.Label(self.frame4, textvariable=self.amount_due)
+        self.label4.pack(side='left')
+        self.amount_due.set('Amount Due: $  0.00')
+
+        # Button 1
+        self.button1 = tk.Button(self.frame5, text='Calculate', command=self.calculate)
+        self.button1.pack(side='left')
+
+        # Button 2
+        self.button2 = tk.Button(self.frame5, text='Quit', command=self.root.destroy)
+        self.button2.pack(side='left')
+
+        self.frame1.pack()
+        self.frame2.pack()
+        self.frame3.pack()
+        self.frame4.pack()
+        self.frame5.pack()
+
+        tk.mainloop()
+
+    # Function to calculate tax
+    def calculate(self):
+        try:
+            s_tax = float(self.entry2.get())
+            a_due = float(self.entry1.get())
+            self.sales_tax.set(f"Sale's Tax: $  {(s_tax * a_due)/100:.2f}")
+            self.amount_due.set(f"Amount Due: $  {a_due + ((s_tax * a_due)/100):.2f}")
+        except:
+            self.sales_tax.set(f"Sale's Tax:  Error")
+            self.amount_due.set(f"Amount Due:  Error")
+
+
+x = GUI()
